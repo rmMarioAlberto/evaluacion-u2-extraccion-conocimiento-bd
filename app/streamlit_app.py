@@ -35,7 +35,9 @@ from sklearn.metrics import (
 
 matplotlib.use("Agg")
 sns.set_style("whitegrid")
-plt.rcParams["figure.figsize"] = (10, 6)
+plt.rcParams["figure.figsize"] = (13, 6.5)
+plt.rcParams["axes.titlesize"] = 14
+plt.rcParams["axes.labelsize"] = 12
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(BASE, "data", "raw")

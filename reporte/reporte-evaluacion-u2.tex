@@ -5,7 +5,10 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{xcolor}
+\usepackage[a4paper, margin=2.5cm]{geometry}
 \usepackage{hyperref}
+\usepackage{xurl}
+\usepackage{tabularx}
 \usepackage{float}
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -30,8 +33,7 @@
 \title{\vspace{2.5cm}
 {\Huge\textcolor{utedark}{Evaluación de la Unidad 2}}\\[0.4cm]
 {\LARGE Extracción de Conocimiento de Base de Datos}\\[1.2cm]
-{\large Análisis Supervisado y No Supervisado\\[0.3cm]
-Tareas de Aprendizaje (SA, NS, DE) y Herramienta Alternativa (AU)}}
+{\large Análisis Supervisado y No Supervisado (SA, NS, DE) y Herramienta Alternativa (AU)}}
 \author{}
 \date{}
 
@@ -39,6 +41,7 @@ Tareas de Aprendizaje (SA, NS, DE) y Herramienta Alternativa (AU)}}
 \setlength{\parskip}{6pt}
 \renewcommand{\contentsname}{Índice}
 \renewcommand{\refname}{Referencias}
+\renewcommand{\tablename}{Tabla}
 
 \titleformat{\section}{\Large\bfseries\color{utedark}}{\thesection.}{0.6em}{}
 \titleformat{\subsection}{\large\bfseries\color{uteprimary}}{\thesubsection.}{0.6em}{}
@@ -104,10 +107,16 @@ datos, así como implementar una \textbf{herramienta alternativa} a Jupyter Note
 para resolver los ejercicios de las evaluaciones SA y DE.
 
 \subsection{Conjuntos de datos}
-\begin{longtable}{@{}lll@{}}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{4.6cm}>{\raggedright\arraybackslash}p{7.2cm}>{\raggedright\arraybackslash}p{3.2cm}@{}}
+\caption{Conjuntos de datos de la evaluación}\\
 \toprule
 \textbf{Archivo} & \textbf{Descripción} & \textbf{Problema} \\
 \midrule
+\endfirsthead
+\toprule
+\textbf{Archivo} & \textbf{Descripción} & \textbf{Problema} \\
+\midrule
+\endhead
 \texttt{beisbol.csv} & 30 equipos de béisbol: \texttt{bateos} y \texttt{runs} & Regresión \\
 \texttt{breast-cancer.csv} & 569 casos de cáncer de mama, 30 características y diagnóstico (B/M) & Clasificación \\
 \texttt{samsung.csv} & 2,850 días de cotización de la acción Samsung (Close y Volume) & Agrupación \\
@@ -253,7 +262,7 @@ euclidiana. \textbf{Accuracy en validación cruzada:} 0.9695.
 \begin{table}[H]
 \centering
 \caption{Métricas del clasificador k-NN sobre el conjunto de prueba}
-\begin{tabular}{lcccc}
+\small\setlength{\tabcolsep}{5pt}\begin{tabular}{lcccc}
 \toprule
  & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} \\
 \midrule
@@ -265,7 +274,7 @@ euclidiana. \textbf{Accuracy en validación cruzada:} 0.9695.
 \begin{table}[H]
 \centering
 \caption{Reporte de clasificación por clase}
-\begin{tabular}{lcccc}
+\small\setlength{\tabcolsep}{5pt}\begin{tabular}{lcccc}
 \toprule
 \textbf{Clase} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} & \textbf{Soporte} \\
 \midrule
@@ -435,7 +444,7 @@ informativa. Por eso el análisis final usa datos escalados.
 \begin{table}[H]
 \centering
 \caption{Varianza explicada (PCA con escalado)}
-\begin{tabular}{ccccc}
+\small\setlength{\tabcolsep}{5pt}\begin{tabular}{ccccc}
 \toprule
 \textbf{Componente} & \textbf{Varianza} & \textbf{Acumulada} &
 \textbf{Componente} & \textbf{Varianza acumulada} \\
@@ -480,7 +489,7 @@ contribuyen más a cada componente.}
 La evaluación DE solicita implementar un algoritmo de clasificación y uno de
 regresión \emph{distintos} a los usados en SA, sobre los mismos conjuntos de datos.
 
-\subsection{DE 1 — Clasificación con Random Forest sobre breast-cancer.csv}
+\subsection{DE 1 — Clasificación con Random Forest}
 
 \subsubsection{Justificación del algoritmo}
 Se eligió \textbf{Random Forest} como alterno al k-NN de SA. Es un ensamble de
@@ -495,7 +504,7 @@ $max\_depth=$ sin límite, $min\_samples\_split=2$. Accuracy en CV: 0.9648.
 \begin{table}[H]
 \centering
 \caption{Métricas de Random Forest sobre el conjunto de prueba}
-\begin{tabular}{lcccc}
+\small\setlength{\tabcolsep}{5pt}\begin{tabular}{lcccc}
 \toprule
  & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} \\
 \midrule
@@ -531,7 +540,7 @@ $max\_depth=$ sin límite, $min\_samples\_split=2$. Accuracy en CV: 0.9648.
 \item Modelo: \url{https://github.com/rmMarioAlberto/evaluacion-u2-extraccion-conocimiento-bd/blob/main/modelos/breast_randomforest.pkl}
 \end{itemize}
 
-\subsection{DE 2 — Regresión con Random Forest sobre beisbol.csv}
+\subsection{DE 2 — Regresión con Random Forest}
 
 \subsubsection{Justificación del algoritmo}
 Se eligió \textbf{Random Forest Regressor} como alterno a la regresión lineal de
@@ -539,7 +548,7 @@ SA. Al ser un ensamble de árboles, puede capturar relaciones no lineales entre
 \texttt{bateos} y \texttt{runs} sin asumir una forma paramétrica.
 
 \subsubsection{Diseño, evaluación y optimización}
-\textbf{Hiperparámetros óptimos (GridSearchCV, RMSE):} $n\_estimators=50$,
+\textbf{Hiperparámetros óptimos (GridSearchCV):} $n\_estimators=50$,
 $max\_depth=$ sin límite, $min\_samples\_leaf=4$.
 
 \begin{table}[H]
@@ -691,7 +700,7 @@ Aplicación: \url{https://github.com/rmMarioAlberto/evaluacion-u2-extraccion-con
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.95\linewidth]{img/repo_github.png}
+\includegraphics[width=\linewidth, height=0.6\textheight, keepaspectratio]{img/repo_github.png}
 \caption{Captura del repositorio que contiene los notebooks, modelos, reporte y
 aplicación de la evaluación.}
 \end{figure}
